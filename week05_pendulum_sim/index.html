@@ -354,7 +354,7 @@ btnReset.addEventListener('click', () => {
   angle = (45 * Math.PI) / 180;
   angularVelocity = 0;
   trail = [];
-  lastTime = null;
+  lastTime = performance.now();
 });
 
 window.addEventListener('resize', () => {
