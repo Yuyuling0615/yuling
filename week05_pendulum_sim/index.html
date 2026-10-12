@@ -131,18 +131,18 @@
 <div class="controls">
   <div class="control-group">
     <label>摆长 L₁</label>
-    <input type="range" id="sliderL1" min="60" max="200" value="90" step="1">
-    <span class="value" id="valL1">90</span>
+    <input type="range" id="sliderL1" min="60" max="200" value="100" step="1">
+    <span class="value" id="valL1">100</span>
   </div>
   <div class="control-group">
     <label>摆长 L₂</label>
-    <input type="range" id="sliderL2" min="60" max="200" value="90" step="1">
-    <span class="value" id="valL2">90</span>
+    <input type="range" id="sliderL2" min="60" max="200" value="100" step="1">
+    <span class="value" id="valL2">100</span>
   </div>
   <div class="control-group">
     <label>重力 g</label>
-    <input type="range" id="sliderG" min="1" max="40" value="15" step="0.1">
-    <span class="value" id="valG">15</span>
+    <input type="range" id="sliderG" min="1" max="40" value="25" step="0.1">
+    <span class="value" id="valG">25</span>
   </div>
   <div class="control-group">
     <label>阻尼</label>
@@ -154,8 +154,8 @@
 <div class="hint">拖拽摆球可改变初始角度<br>释放后自动恢复模拟</div>
 <div class="params">
   双摆混沌模拟器<br>
-  L₁ = <span id="pL1">90</span> px &nbsp; L₂ = <span id="pL2">90</span> px<br>
-  g = <span>15 m/s²</span>
+  L₁ = <span id="pL1">100</span> px &nbsp; L₂ = <span id="pL2">100</span> px<br>
+  g = <span>25 m/s²</span>
 </div>
 <div class="info">双摆混沌模拟器 — 余玉玲 7903126031</div>
 
@@ -167,14 +167,14 @@ const W = canvas.width = Math.min(window.innerWidth * 0.85, 800);
 const H = canvas.height = Math.min(window.innerHeight * 0.78, 600);
 
 const PIVOT_X = W / 2;
-const PIVOT_Y = H * 0.12;
-const SCALE = 0.01;
+const PIVOT_Y = H * 0.32;
+const SCALE = 0.006;
 const BOB_RADIUS = 14;
 const DRAG_THRESHOLD = 30;
 
-let L1 = 90;
-let L2 = 90;
-let G = 15;
+let L1 = 100;
+let L2 = 100;
+let G = 25;
 let dampingFactor = 0.0;
 
 let theta1 = (170 * Math.PI) / 180;
