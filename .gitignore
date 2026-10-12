@@ -1,0 +1,8 @@
+# Ignore everything at root level
+/*
+
+# Track week05 experiment directory
+!week05_pendulum_sim/
+
+# Track .gitignore itself
+!.gitignore
