@@ -39,6 +39,13 @@ week05_pendulum_sim/
 | `f655779` | feat(week05): upgrade to double pendulum with RK4, rainbow trail, and mouse drag |
 | `1b4d89a` | tune(week05): increase swing speed range |
 | `ba3bde3` | tune(week05): center pivot vertically, increase speed |
+| `6430e3e` | docs(week05): add updated README with reflections |
+| `9a95a84` | docs(week05): finalize README rename, clean temp files |
+| `9ece378` | docs(week05): add pendulum screenshot |
+
+## GitHub 仓库
+
+https://github.com/Yuyuling0615/yuling
 
 ## 人机协同三反思
 
