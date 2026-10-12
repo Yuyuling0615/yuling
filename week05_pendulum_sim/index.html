@@ -21,6 +21,79 @@
     display: block;
     border-radius: 12px;
   }
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-top: 18px;
+    padding: 14px 28px;
+    background: rgba(30, 30, 46, 0.85);
+    border: 1px solid rgba(126, 184, 218, 0.12);
+    border-radius: 10px;
+  }
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .control-group label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    opacity: 0.6;
+    text-transform: uppercase;
+  }
+  .control-group .value {
+    font-size: 14px;
+    color: #7eb8da;
+    font-variant-numeric: tabular-nums;
+    min-width: 52px;
+    text-align: center;
+  }
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 120px;
+    height: 4px;
+    background: rgba(126, 184, 218, 0.15);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #5ba8d4;
+    box-shadow: 0 0 6px rgba(91, 168, 212, 0.5);
+    cursor: pointer;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #5ba8d4;
+    box-shadow: 0 0 6px rgba(91, 168, 212, 0.5);
+    border: none;
+    cursor: pointer;
+  }
+  .btn-reset {
+    padding: 8px 20px;
+    background: rgba(91, 168, 212, 0.15);
+    border: 1px solid rgba(91, 168, 212, 0.3);
+    border-radius: 6px;
+    color: #7eb8da;
+    font-size: 13px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .btn-reset:hover {
+    background: rgba(91, 168, 212, 0.25);
+    border-color: rgba(91, 168, 212, 0.5);
+  }
   .info {
     position: fixed;
     bottom: 24px;
@@ -42,6 +115,24 @@
 </head>
 <body>
 <canvas id="canvas"></canvas>
+<div class="controls">
+  <div class="control-group">
+    <label>摆长 L (px)</label>
+    <input type="range" id="sliderL" min="100" max="350" value="200" step="1">
+    <span class="value" id="valL">200</span>
+  </div>
+  <div class="control-group">
+    <label>重力 g</label>
+    <input type="range" id="sliderG" min="1" max="25" value="9.8" step="0.1">
+    <span class="value" id="valG">9.8</span>
+  </div>
+  <div class="control-group">
+    <label>阻尼</label>
+    <input type="range" id="sliderD" min="0" max="0.010" value="0.001" step="0.001">
+    <span class="value" id="valD">0.001</span>
+  </div>
+  <button class="btn-reset" id="btnReset">重置摆动</button>
+</div>
 <div class="params">
   摆长 L = <span>200 px</span><br>
   重力 g = <span>9.8 m/s²</span><br>
@@ -58,10 +149,10 @@ const H = canvas.height = Math.min(window.innerHeight * 0.78, 600);
 
 const PIVOT_X = W / 2;
 const PIVOT_Y = H * 0.15;
-const L = 200;
-const G = 9.8;
+let L = 200;
+let G = 9.8;
 const SCALE = 0.01;
-const DAMPING = 0.999;
+let dampingFactor = 0.001;
 const BOB_RADIUS = 18;
 
 let angle = (45 * Math.PI) / 180;
@@ -74,7 +165,7 @@ const MAX_TRAIL = 60;
 function updatePhysics(dt) {
   const angularAcceleration = (-G / (L * SCALE)) * Math.sin(angle);
   angularVelocity += angularAcceleration * dt;
-  angularVelocity *= DAMPING;
+  angularVelocity *= (1 - dampingFactor);
   angle += angularVelocity * dt;
 }
 
@@ -234,6 +325,37 @@ function animate(timestamp) {
 }
 
 requestAnimationFrame(animate);
+
+const sliderL = document.getElementById('sliderL');
+const sliderG = document.getElementById('sliderG');
+const sliderD = document.getElementById('sliderD');
+const valL = document.getElementById('valL');
+const valG = document.getElementById('valG');
+const valD = document.getElementById('valD');
+const btnReset = document.getElementById('btnReset');
+
+sliderL.addEventListener('input', () => {
+  L = parseFloat(sliderL.value);
+  valL.textContent = L;
+  trail = [];
+});
+
+sliderG.addEventListener('input', () => {
+  G = parseFloat(sliderG.value);
+  valG.textContent = G;
+});
+
+sliderD.addEventListener('input', () => {
+  dampingFactor = parseFloat(sliderD.value);
+  valD.textContent = dampingFactor.toFixed(3);
+});
+
+btnReset.addEventListener('click', () => {
+  angle = (45 * Math.PI) / 180;
+  angularVelocity = 0;
+  trail = [];
+  lastTime = null;
+});
 
 window.addEventListener('resize', () => {
   const newW = Math.min(window.innerWidth * 0.85, 800);
