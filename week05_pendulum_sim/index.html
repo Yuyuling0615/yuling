@@ -131,18 +131,18 @@
 <div class="controls">
   <div class="control-group">
     <label>摆长 L₁</label>
-    <input type="range" id="sliderL1" min="60" max="200" value="130" step="1">
-    <span class="value" id="valL1">130</span>
+    <input type="range" id="sliderL1" min="60" max="200" value="90" step="1">
+    <span class="value" id="valL1">90</span>
   </div>
   <div class="control-group">
     <label>摆长 L₂</label>
-    <input type="range" id="sliderL2" min="60" max="200" value="130" step="1">
-    <span class="value" id="valL2">130</span>
+    <input type="range" id="sliderL2" min="60" max="200" value="90" step="1">
+    <span class="value" id="valL2">90</span>
   </div>
   <div class="control-group">
     <label>重力 g</label>
-    <input type="range" id="sliderG" min="1" max="25" value="9.8" step="0.1">
-    <span class="value" id="valG">9.8</span>
+    <input type="range" id="sliderG" min="1" max="40" value="15" step="0.1">
+    <span class="value" id="valG">15</span>
   </div>
   <div class="control-group">
     <label>阻尼</label>
@@ -154,8 +154,8 @@
 <div class="hint">拖拽摆球可改变初始角度<br>释放后自动恢复模拟</div>
 <div class="params">
   双摆混沌模拟器<br>
-  L₁ = <span id="pL1">130</span> px &nbsp; L₂ = <span id="pL2">130</span> px<br>
-  g = <span>9.8 m/s²</span>
+  L₁ = <span id="pL1">90</span> px &nbsp; L₂ = <span id="pL2">90</span> px<br>
+  g = <span>15 m/s²</span>
 </div>
 <div class="info">双摆混沌模拟器 — 余玉玲 7903126031</div>
 
@@ -172,14 +172,14 @@ const SCALE = 0.01;
 const BOB_RADIUS = 14;
 const DRAG_THRESHOLD = 30;
 
-let L1 = 130;
-let L2 = 130;
-let G = 9.8;
+let L1 = 90;
+let L2 = 90;
+let G = 15;
 let dampingFactor = 0.0;
 
-let theta1 = (120 * Math.PI) / 180;
+let theta1 = (170 * Math.PI) / 180;
 let omega1 = 0;
-let theta2 = (120 * Math.PI) / 180;
+let theta2 = (170 * Math.PI) / 180;
 let omega2 = 0;
 
 let lastTime = null;
@@ -438,9 +438,9 @@ sliderD.addEventListener('input', () => {
 });
 
 btnReset.addEventListener('click', () => {
-  theta1 = (120 * Math.PI) / 180;
+  theta1 = (170 * Math.PI) / 180;
   omega1 = 0;
-  theta2 = (120 * Math.PI) / 180;
+  theta2 = (170 * Math.PI) / 180;
   omega2 = 0;
   trail = [];
   lastTime = performance.now();
